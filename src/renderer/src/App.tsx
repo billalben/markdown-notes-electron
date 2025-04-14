@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { ActionButtonsRow, Content, DraggableTopBar, NotePreviewList, RootLayout, Sidebar } from './components';
+import { ActionButtonsRow, Content, DraggableTopBar, FloatingNoteTitle, MarkdownEditor, NotePreviewList, RootLayout, Sidebar } from './components';
 
 function App() {
   const contentContainerRef = useRef<HTMLDivElement>(null);
@@ -18,7 +18,8 @@ function App() {
         </Sidebar>
 
         <Content ref={contentContainerRef} className="border-l bg-zinc-900/50 border-l-white/20">
-          Content
+          <FloatingNoteTitle className="pt-2" />
+          <MarkdownEditor />
         </Content>
       </RootLayout>
     </>
