@@ -1,11 +1,13 @@
-import { contextBridge } from 'electron'
+import { contextBridge } from 'electron';
 
 if (!process.contextIsolated) {
-  throw new Error('contextIsolation is disabled')
+  throw new Error('contextIsolation is disabled');
 }
 
 try {
-  contextBridge.exposeInMainWorld('context', {})
+  contextBridge.exposeInMainWorld('context', {
+    locale: navigator.language
+  });
 } catch (error) {
-  console.error(error)
+  console.error(error);
 }
