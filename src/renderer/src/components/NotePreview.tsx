@@ -2,7 +2,7 @@ import { cn, formatDateFromMs } from '@renderer/utils';
 import { NoteInfo } from '@shared/models';
 import { ComponentProps } from 'react';
 
-export type NotePreviewProps = NoteInfo & {
+type NotePreviewProps = NoteInfo & {
   isActive?: boolean;
 } & ComponentProps<'li'>;
 
@@ -23,8 +23,3 @@ export const NotePreview = ({ title, lastEditTime, isActive = false, className, 
     </li>
   );
 };
-
-// <li key={note.title} onClick={onSelect} className="p-2 border-b border-zinc-400/50 hover:bg-zinc-600/50 transition-colors duration-100">
-//   <h3 className="text-lg font-semibold">{note.title}</h3>
-//   <p className="text-sm text-zinc-300">{note.lastEditTime}</p>
-// </li>

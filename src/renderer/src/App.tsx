@@ -11,13 +11,13 @@ function App() {
   return (
     <>
       <DraggableTopBar />
-      <RootLayout>
-        <Sidebar className="p-2">
-          <ActionButtonsRow className="flex justify-between mt-1" />
+      <RootLayout className="bg-zinc-900/50 backdrop-blur-sm ">
+        <Sidebar className="no-scrollbar">
+          <ActionButtonsRow className="p-2 flex justify-between sticky top-0 bg-zinc-900/50 backdrop-blur-sm z-10 " />
           <NotePreviewList className="mt-3 space-y-1" onSelect={resetScroll} />
         </Sidebar>
 
-        <Content ref={contentContainerRef} className="border-l bg-zinc-900/50 border-l-white/20">
+        <Content ref={contentContainerRef} className="border-l bg-zinc-900/50 border-l-white/20 no-scrollbar">
           <FloatingNoteTitle className="pt-2" />
           <MarkdownEditor />
         </Content>

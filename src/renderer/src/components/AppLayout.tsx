@@ -14,7 +14,7 @@ export const RootLayout = ({ className, children, ...props }: AppLayoutProps) =>
 
 export const Sidebar = ({ className, children, ...props }: AppLayoutProps) => {
   return (
-    <aside className={twMerge('w-[250px] mt-5 h-[100vh + 10px] overflow-auto', className)} {...props}>
+    <aside className={twMerge('w-[250px] h-[100vh + 10px] overflow-auto', className)} {...props}>
       {children}
     </aside>
   );

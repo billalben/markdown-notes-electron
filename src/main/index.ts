@@ -1,5 +1,7 @@
+import { createNote, deleteNote, getNotes, readNote, writeNote } from '@/lib';
 import { electronApp, is, optimizer } from '@electron-toolkit/utils';
-import { app, BrowserWindow, ipcMain, shell } from 'electron';
+import { CreateNote, DeleteNote, GetNotes, ReadNote, WriteNote } from '@shared/types';
+import { BrowserWindow, app, ipcMain, shell } from 'electron';
 import { join } from 'path';
 import icon from '../../resources/icon.png?asset';
 
@@ -12,12 +14,6 @@ function createWindow(): void {
     autoHideMenuBar: !is.dev, // Hide menu bar in production
     ...(process.platform === 'linux' ? { icon } : {}), // Set icon on Linux
     center: true,
-    frame: process.platform === 'darwin' ? false : true, // Hide frame only on macOS
-    ...(process.platform === 'darwin' ? { vibrancy: 'under-window' } : {}), // macOS only - enable background blur
-    ...(process.platform === 'darwin' ? { visualEffectState: 'active' } : {}), // macOS only - active: Effect is always applied - inactive: Effect is removed when the window loses focus - followWindow:  Dynamically follows the window's active state
-    ...(process.platform === 'darwin' ? { titleBarStyle: 'hidden' } : {}), // macOS only
-    ...(process.platform === 'darwin' ? { titleBarOverlay: true } : {}), // macOS only
-    ...(process.platform === 'darwin' ? { trafficLightPosition: { x: 15, y: 10 } } : {}), // macOS only - Moves the red/yellow/green traffic light buttons on the title bar
     title: 'NoteMark',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -61,8 +57,11 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window);
   });
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'));
+  ipcMain.handle('getNotes', (_, ...args: Parameters<GetNotes>) => getNotes(...args));
+  ipcMain.handle('readNote', (_, ...args: Parameters<ReadNote>) => readNote(...args));
+  ipcMain.handle('writeNote', (_, ...args: Parameters<WriteNote>) => writeNote(...args));
+  ipcMain.handle('createNote', (_, ...args: Parameters<CreateNote>) => createNote(...args));
+  ipcMain.handle('deleteNote', (_, ...args: Parameters<DeleteNote>) => deleteNote(...args));
 
   createWindow();
 
@@ -82,5 +81,5 @@ app.on('window-all-closed', () => {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
+// In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
